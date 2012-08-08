@@ -66,6 +66,12 @@ var recv = function (callbackMessage, callbackUser, successTimeout, errorTimeout
         }
     }).error(function (err) {
         setTimeout(function () {
+                    /* TODO in the worst case, if you send a message right after a timeout
+                        it'll take <= two seconds for it to show up. I'm not sure whether
+                        to just send a few newlines to the client, to keep the connection
+                        alive (which will mess with the presence algorithm) or reduce the
+                        timeout for this specific error condition (which might introduce
+                        a regression at some point). */
                 recv(callbackMessage, callbackUser, successTimeout, errorTimeout);
             }, errorTimeout || 2000);
     });
@@ -81,7 +87,9 @@ var hideTimes = function (secs) {
 
     */
     var today = $(ISODateString(new Date)).text();
-    var tx = 0;
+    var tx = 0; // TODO. If there isn't a timestamp every, say, 10 messages,
+                // one should be added regardness. Otherwise you might not
+                // see one for hours (if people are talking continuously)
     $(".t").each(function () {
         var e = $(this), t = parseInt($(this).attr("data-time"));
         if ((t - tx) < ((secs || 60 * 5) * 1000)) {
@@ -125,6 +133,7 @@ $(function () {
             + message["user"]["emailHash"] + "?s=16&d=identicon");
         $("table.chat").append(el);
         hideTimes();
+        /* TODO hide user names when someone posts multiple messages */
         setTimeout(function () { adjustScroll(el)}, 40);
     }, function (user) {
         var add = function () {

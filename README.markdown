@@ -29,14 +29,12 @@ http://ng.plzz.de/
 To run the sever, first install the required modules from npm:
 
     cd victorychat-ng
-    npm install \
-    bind cradle express markdown openid \
-    underscore connect connect-couchdb
+    npm install
 
 Then install CouchDB
 
     sudo apt-get install couchdb
-    sudo nano /etc/couchdb/local.ini
+    sudoedit /etc/couchdb/local.ini
 
 At the bottom of local.ini, in the `[admins]` section,
 add a new user with a random password.

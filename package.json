@@ -1,0 +1,19 @@
+{
+  "name": "victorychat-ng",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.0rc1",
+    "bind": "*",
+    "cradle": "*",
+    "markdown": "*",
+    "openid": "*",
+    "underscore": "*",
+    "connect": "*",
+    "connect-couchdb": "*"
+  }
+}
+

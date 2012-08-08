@@ -1,0 +1,18 @@
+{
+    "couchdb": {
+        "host": "127.0.0.1",
+        "port": 5984,
+        "username": "chat",
+        "password": "92384209840239840293840238402",
+        "database": "chat"
+    },
+    "cookies": {
+        "secret": "crazysecretstuff"
+    },
+    "http": {
+        "port": 5000
+    },
+    "openid": {
+        "host": "localhost:5000"
+    }
+}

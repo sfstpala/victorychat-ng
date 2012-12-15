@@ -1,6 +1,6 @@
 # VictoryChat 300
 
-[style](/public/style.less)
+[style](public/style.less)
 
 This is a fork of VictoryChat (even though they don't actually
 share any code), written in JavaScript:

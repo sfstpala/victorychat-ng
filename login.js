@@ -1,17 +1,3 @@
-/*
-    TODO
-
-      - Store the session in CouchDB rather than on the server.
-        This way, it will be possible to run multiple servers
-        without forcing any one client to say on the same machine.
-
-        Access to the db should only happen, however, when the
-        session is suspected to be invalid or clearly not there:
-        the session is checked on every long-poll, every send, so
-        it has to be quite fast.
-
-*/
-
 var openid = require('openid'),
     bind = require('bind'),
     crypto = require('crypto'),

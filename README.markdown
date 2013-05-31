@@ -45,3 +45,12 @@ the http port for the app, make sure to also change that
 number in the openid host parameter.
 
 After all of this, run `node main.js` and go to `http://localhost:5000`.
+
+# Copying
+
+Copyright (C) 2012-2013 Stefano Palazzo <stefano.palazzo@gmail.com>
+
+VictoryChat 300 is licensed to you under the terms of the GNU General
+Public License, Version 3 or (at your option) any later version.
+
+For more information, see `COPYING`.

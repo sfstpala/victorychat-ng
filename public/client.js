@@ -102,7 +102,7 @@ var hideTimes = function (secs) {
     });
 };
 
-var ISODateString = function (d) {
+var ISODateString = function (d, plain) {
     /*
     Convert a Date object into something like the ISO format.
     I.e. "<span class=date>2012-08-06</span> 07:27" (the real
@@ -110,11 +110,12 @@ var ISODateString = function (d) {
 
     */
     function pad(n){return n < 10 ? '0' + n : n}
-    return "<span class=date>" + d.getUTCFullYear() + '-'
+    return (plain ? "" : "<span class=date>")
+        + d.getUTCFullYear() + '-'
         + pad(d.getUTCMonth() + 1)+'-'
-        + pad(d.getUTCDate()) + '</span> '
+        + pad(d.getUTCDate()) + (plain ? " " : '</span> ')
         + pad(d.getUTCHours()) + ':'
-        + pad(d.getUTCMinutes()) + '';
+        + pad(d.getUTCMinutes()) + 'Z';
 }
 
 var adjustScroll = function (lastElement) {
@@ -128,6 +129,7 @@ $(function () {
         el.find(".m").html(message["html"]);
         el.find(".t").html(ISODateString(new Date(message["date"])));
         el.find(".t").attr("data-time", message["date"]);
+        el.find(".t").attr("title", ISODateString(new Date(message["date"]), true));
         el.find(".n").text(message["user"]["name"]);
         el.find("img.g").attr("src", "http://www.gravatar.com/avatar/"
             + message["user"]["emailHash"] + "?s=16&d=identicon");

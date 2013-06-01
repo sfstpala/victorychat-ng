@@ -1,4 +1,16 @@
 var last = 0; /* the id of the last message received */
+var room = "one";
+var currentRequest;
+var currentUsers = [];
+var changeRoom = function (newRoom) {
+    room = newRoom;
+    if (currentRequest !== undefined) {
+        currentRequest.abort();
+    }
+    $("table.chat .p").remove();
+    last = 0;
+    poll();
+};
 var send = function (message, success, error) {
     /*
     Send a message to the server.
@@ -14,7 +26,7 @@ var send = function (message, success, error) {
     */
     $.ajax({
         type: 'put',
-        url: '/send/one', /* TODO */
+        url: '/send/' + room,
         dataType: 'json',
         data: {message: message},
         success: (success || function (res) {})
@@ -45,9 +57,9 @@ var recv = function (callbackMessage, callbackUser, successTimeout, errorTimeout
         });
 
     */
-    $.ajax({
+    currenrRequest = $.ajax({
         type: 'get',
-        url: '/recv/one/' + last.toString(), /* TODO */
+        url: '/recv/' + room + '/' + last.toString(),
         success: function (res) {
             // the server returns no new last value and an empty message array
             // after a certain amount of time.
@@ -122,8 +134,7 @@ var adjustScroll = function (lastElement) {
     $("html,body").scrollTop($("body").height());
 };
 
-$(function () {
-    var currentUsers = [];
+var poll = function () {
     recv(function (message) {
         var el = $("table.chat tr:first").clone().removeClass("hidden");
         el.find(".m").html(message["html"]);
@@ -133,6 +144,7 @@ $(function () {
         el.find(".n").text(message["user"]["name"]);
         el.find("img.g").attr("src", "http://www.gravatar.com/avatar/"
             + message["user"]["emailHash"] + "?s=16&d=identicon");
+        $(el).addClass("p");
         $("table.chat").append(el);
         hideTimes();
         /* TODO hide user names when someone posts multiple messages */
@@ -167,6 +179,10 @@ $(function () {
             };
         });
     });
+};
+
+$(function () {
+    poll();
     var returnDisabled = false;
     $("button[name=send]").click(function (e) {
         var textarea = $("textarea[name=message]");

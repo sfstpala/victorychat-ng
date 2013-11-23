@@ -6,7 +6,7 @@
     "start": "node main.js"
   },
   "dependencies": {
-    "express": "3.0.0rc1",
+    "express": "3.0",
     "bind": "*",
     "cradle": "*",
     "markdown": "*",
